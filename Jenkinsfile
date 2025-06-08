@@ -5,8 +5,8 @@ pipeline {
         DOCKER_USER = "maria97"
         IMAGE_NAME = "python-ci-app"
         DOCKER_REGISTRY = "https://index.docker.io/v1/"
-        AWS_ACCESS_KEY_ID = credentials('keys aws')
-        AWS_SECRET_ACCESS_KEY = credentials('secret aws')
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = 'us-east-1'
     }
 
