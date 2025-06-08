@@ -7,11 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/MariaForero97/CICDINTEGRATIONPROJECT.git'
-            }
-        }
 
         stage('Build Docker') {
             steps {
