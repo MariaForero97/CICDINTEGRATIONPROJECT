@@ -1,20 +1,17 @@
 pipeline {
     agent any
-    
+
     environment {
         DOCKER_USER = "maria97"
         IMAGE_NAME = "python-ci-app"
-        DOCKER_REGISTRY = "docker.io"
+        DOCKER_REGISTRY = "https://index.docker.io/v1/"
     }
 
-
     stages {
-
         stage('Build Docker') {
             steps {
                 script {
                     docker.build("${DOCKER_USER}/${IMAGE_NAME}:latest", "app/")
-
                 }
             }
         }
@@ -22,10 +19,9 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", 'credenciales-docker') {
-                    docker.image("${DOCKER_USER}/${IMAGE_NAME}:latest").push()
+                    docker.withRegistry("${DOCKER_REGISTRY}", 'credenciales-docker') {
+                        docker.image("${DOCKER_USER}/${IMAGE_NAME}:latest").push()
                     }
-
                 }
             }
         }
