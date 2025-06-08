@@ -32,12 +32,13 @@ pipeline {
             }
             steps {
                 dir('terraform') {
-                    sh '''
-                    terraform init
-                    terraform apply -auto-approve
-                    '''
+                bat '''
+                terraform init
+                terraform apply -auto-approve
+                '''
                 }
             }
         }
+
     }
 }
