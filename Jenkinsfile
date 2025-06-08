@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "cicdintegration"
+        IMAGE_NAME = "python-ci-app"
         DOCKER_REGISTRY = "docker.io/maria97"
     }
 
@@ -26,7 +26,10 @@ pipeline {
             }
         }
 
-        stage('Deploy Infra - S3 Bucket') {
+        stage('Terraform Apply (opcional)') {
+            when {
+                expression { fileExists('terraform/main.tf') }
+            }
             steps {
                 dir('terraform') {
                     sh '''
@@ -36,7 +39,5 @@ pipeline {
                 }
             }
         }
-
-
     }
 }
