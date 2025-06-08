@@ -31,15 +31,6 @@ pipeline {
             }
         }
 
-        stage('Terraform Init & Apply') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform init'
-                    sh 'terraform apply -auto-approve'
-                }
-            }
-        }
-
         stage('Deploy Infra - S3 Bucket') {
             steps {
                 dir('terraform') {
@@ -48,8 +39,9 @@ pipeline {
                     terraform apply -auto-approve
                     '''
                 }
-    }
-}
+            }
+        }
+
 
     }
 }
