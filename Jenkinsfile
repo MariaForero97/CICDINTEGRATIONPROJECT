@@ -1,17 +1,20 @@
 pipeline {
     agent any
-
+    
     environment {
+        DOCKER_USER = "maria97"
         IMAGE_NAME = "python-ci-app"
-        DOCKER_REGISTRY = "docker.io/maria97"
+        DOCKER_REGISTRY = "docker.io"
     }
+
 
     stages {
 
         stage('Build Docker') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:latest", "app/")
+                    docker.build("${DOCKER_USER}/${IMAGE_NAME}:latest", "app/")
+
                 }
             }
         }
@@ -20,13 +23,14 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", 'credenciales-docker') {
-                        docker.image("${IMAGE_NAME}:latest").push()
+                    docker.image("${DOCKER_USER}/${IMAGE_NAME}:latest").push()
                     }
+
                 }
             }
         }
 
-        stage('Terraform Apply (opcional)') {
+        stage('Terraform Apply') {
             when {
                 expression { fileExists('terraform/main.tf') }
             }
